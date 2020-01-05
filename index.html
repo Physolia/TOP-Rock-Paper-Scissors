@@ -49,19 +49,19 @@ function playRound(selection) {
     	    switch(gameData.cpuChoice) {
     			case 'ROCK':
 				    console.log(`You Tied!`)
-                    gameData.win = (0)
+                    gameData.win = (0);
                     var gameOutcome = 'You Tied.'
                     document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'PAPER':
-                    gameData.win = (-1)
+                    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
+                    gameData.win = (-1);
                     var gameOutcome = 'You Lost...'
-				    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
                     document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
                 case 'SCISSORS':
+                    gameData.win = (1);
                     var gameOutcome = 'You Won!'
-                    gameData.win = (1)
 				    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
                     document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
@@ -69,41 +69,41 @@ function playRound(selection) {
   	    case 'PAPER':
         	switch(gameData.cpuChoice) {
 			    case 'ROCK':
-                    gameData.win = (1)
-                    var gameOutcome = 'You Won!'
                     console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
+                    gameData.win = (1);
+                    var gameOutcome = 'You Won!'
                     document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'PAPER':
     				console.log("You Tied!")
-                    gameData.win = (0)
+                    gameData.win = (0);
                     var gameOutcome = 'You Tied.'
                     document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'SCISSORS':
-                    gameData.win += (-1)
-                    var gameOutcome = 'You Lost...'
                     console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
+                    gameData.win += (-1);
+                    var gameOutcome = 'You Lost...'
                     document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 		    }
   	    case 'SCISSORS':
     		switch(gameData.cpuChoice) {
 			    case 'ROCK':
-                    gameData.win = (-1)
+                    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
+                    gameData.win = (-1);
                     var gameOutcome = 'You Lost...'
-				    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
                     document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'PAPER':
-                    gameData.win = (1)
+                    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
+                    gameData.win = (1);
                     var gameOutcome = 'You Won!'
-				    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
                     document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'SCISSORS':
-    				gameData.win = (0)
                     console.log("You Tied!")
+                    gameData.win = (0);
                     var gameOutcome = 'You Tied.'
                     document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
