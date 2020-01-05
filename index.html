@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+// Function to randomly select Rock, Paper, or Scissors
+// Uses the ~~ with math due to efficiency
+function computerPlay() {
+	var cpuTry = ['ROCK', 'PAPER', 'SCISSORS'];
+	var rand = cpuTry[~~(Math.random() * cpuTry.length)];
+	return rand;
+}
+
+// Function for taking user Rock, Paper, or Scissors input and comparing
+// If they match you tie, the win conditions are specificially set, otherwise you loose.
+// Appends the user input to uppercase to check for different typed in versions
+function playRoundOld(playerSelection, computerSelection) {
+	// If we've already input a computerSelection, we'll use that
+	// Otherwise we'll generate one using the computerPlay() function
+	if (computerSelection == undefined) {
+		computerSelection = computerPlay()
+	}
+	if (playerSelection.toUpperCase() == computerSelection) {
+		return "You Tied!"
+	} else if (playerSelection.toUpperCase() == 'ROCK' && computerSelection == 'SCISSORS') {
+		return `You Win! ${playerSelection.toUpperCase()} beats ${gameData.cpuChoice}`
+	} else if (playerSelection.toUpperCase() == 'PAPER' && computerSelection == 'ROCK') {
+		return `You Win! ${playerSelection.toUpperCase()} beats ${gameData.cpuChoice}`
+	} else if (playerSelection.toUpperCase() == 'SCISSORS' && computerSelection == 'PAPER') {
+		return `You Win! ${playerSelection.toUpperCase()} beats ${gameData.cpuChoice}`
+	} else {
+		return `You Loose! ${gameData.cpuChoice} beats ${playerSelection}`
+	}
+}
+
+// Function to play a single round.
+// Appending data into gameData JSON object for easier data flow.
+// Each game is manually checked instead of using deductive reasoning
+function playRound(selection) {
+	selection = playerSelection(selection).toUpperCase()
+	var gameData = {
+		'win': (0),
+		'userChoice': selection,
+		'cpuChoice': computerPlay(),
+    }
+    switch (gameData.win){
+        case (1):
+            var gameOutcome = 'You Won!'
+            break;
+        case (0):
+            var gameOutcome = 'You Tied.'
+            break;
+        case (-1):
+            var gameOutcome = 'You Lost...'
+            break;
+    }
+    var showRPSData = (`
+        ${gameOutcome}<br>
+        Your Choice: ${gameData.userChoice}<br>
+        CPU's Choice: ${gameData.cpuChoice}<br>
+    `)
+	switch(gameData.userChoice) {
+  	    case 'ROCK':
+    	    switch(gameData.cpuChoice) {
+    			case 'ROCK':
+				    console.log(`You Tied!`)
+				    gameData.win = (0)
+				    // console.log(gameData)
+                    document.getElementById("finalData").innerHTML = showRPSData
+                    return gameData;
+			    case 'PAPER':
+    				gameData.win = (-1)
+				    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
+				    // console.log(gameData)
+                    document.getElementById("finalData").innerHTML = showRPSData
+                    return gameData;
+			    case 'SCISSORS':
+    				gameData.win = (1)
+				    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
+				    // console.log(gameData)
+                    document.getElementById("finalData").innerHTML = showRPSData
+                    return gameData;
+		    }
+  	    case 'PAPER':
+        	switch(gameData.cpuChoice) {
+			    case 'ROCK':
+    				gameData.win = (-1)
+				    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
+				    // console.log(gameData)
+                    document.getElementById("finalData").innerHTML = showRPSData
+                    return gameData;
+			    case 'PAPER':
+    				console.log("You Tied!")
+				    gameData.win = (0)
+				    // console.log(gameData)
+                    document.getElementById("finalData").innerHTML = showRPSData
+                    return gameData;
+			    case 'SCISSORS':
+    				gameData.win += (1)
+				    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
+				    // console.log(gameData)
+                    document.getElementById("finalData").innerHTML = showRPSData
+                    return gameData;
+		    }
+  	    case 'SCISSORS':
+    		switch(gameData.cpuChoice) {
+			    case 'ROCK':
+    				gameData.win = (-1)
+				    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
+				    // console.log(gameData)
+                    document.getElementById("finalData").innerHTML = showRPSData
+                    return gameData;
+			    case 'PAPER':
+    				gameData.win = (1)
+				    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
+				    // console.log(gameData)
+                    document.getElementById("finalData").innerHTML = showRPSData
+                    return gameData;
+			    case 'SCISSORS':
+    				gameData.win = (0)
+				    console.log("You Tied!")
+				    // console.log(gameData)
+                    document.getElementById("finalData").innerHTML = showRPSData
+                    return gameData;
+		    }
+	    }
+    }
+
+// Truthy Function for checking whether a string value is in an array
+function checkInput(arr, val) {
+  return arr.some(function(arrVal) {
+    return val === arrVal;
+  });
+}
+
+// Function for grabbing user input and error checking the results
+// Will stop asking after 5 tries and lets you cancel out with 0 or Not
+// Can toss in the value normally, or it will ask each time
+// This way we can call the function later multiple times for multiple different inputs
+function playerSelection(selection) {
+	var count = 5
+	var gameChoices = ['ROCK', 'PAPER', 'SCISSORS']
+	if (selection) {
+		if (checkInput(gameChoices, (selection.toString()).toUpperCase() ) == true) {
+			return selection;
+		} else {
+			count += -1
+			console.log(`Invalid Attempts Left: ${count}, Press 0 or 'N' to Exit'`)
+			selection = prompt('Not a valid response, please try again.')
+		}
+	}
+	if ((selection == undefined) || (selection == '') || (selection == ' ') ) {
+		selection = prompt('Rock, Paper, or Scissors?')
+		if (checkInput(gameChoices, (selection.toString()).toUpperCase() ) == true) {
+			return selection;
+		} else if (
+			(selection.toString() == '0') ||
+			(selection.toUpperCase() == 'N') ||
+			(selection == '') ||
+			(selection == ' ') ) {
+				console.log('You pressed nothing, Space, 0, or "N" to quit.')
+				return ('Exiting Function.');
+		} else {
+			count += -1
+			console.log(`Invalid Attempts Left: ${count}, Press 0 or 'N' to Exit'`)
+			selection = prompt('Not a valid response, please try again.')
+		}
+	}
+	while (count > 0) {
+		if (
+			(selection.toString() == '0') ||
+			(selection.toUpperCase() == 'N') ||
+			(selection == '') ||
+			(selection == ' ') ) {
+				console.log('You pressed nothing, Space, 0, or "N" to quit.')
+				return ('Exiting Function.');
+		}
+		else if (checkInput(gameChoices, selection.toUpperCase()) == false) {
+			count += -1
+			console.log(`Invalid Attempts Left: ${count}, Press 0 or 'N' to Exit'`)
+			selection = prompt('Not a valid response, please try again.')
+		}
+		else if (checkInput(gameChoices, selection.toUpperCase()) == true) {
+			return selection;
+		}
+	}
+} // playerSelection()
+
+// Play best of 5 games, or 20 total.
+function playRPS() {
+	let gameData = {
+		'cpuChoices': {
+			'cpuRock': 0,
+			'cpuPaper': 0,
+			'cpuScissors': 0,
+		},
+		'userChoices': {
+			'userRock': 0,
+			'userPaper': 0,
+			'userScissors': 0,
+		},
+		'ties': 0,
+	    'wins': 0,
+  	    'losses': 0,
+		'games': 0,
+		'winThreshold': 5,
+		'maxGames': 20,
+		'winAverage': 0,
+      }
+    console.log(`Game ends after ${gameData.winThreshold} wins/losses, or ${gameData.maxGames} games total.`)
+	while ((gameData.wins < gameData.winThreshold) && (gameData.losses < gameData.winThreshold)) {
+        console.log(gameData)
+		var testPlay = playRound()
+		switch (testPlay.cpuChoice.toString()) {
+			case 'ROCK':
+				gameData.cpuChoices.cpuRock += 1
+				break;
+			case 'PAPER':
+				gameData.cpuChoices.cpuPaper += 1
+				break;
+			case 'SCISSORS':
+				gameData.cpuChoices.cpuScissors += 1
+				break;
+		}
+		switch (testPlay.userChoice.toString()) {
+			case 'ROCK':
+				gameData.userChoices.userRock += 1
+				break;
+			case 'PAPER':
+				gameData.userChoices.userPaper += 1
+				break;
+			case 'SCISSORS':
+				gameData.userChoices.userScissors += 1
+				break;
+		}
+		switch (testPlay.win) {
+			case (1):
+				gameData.wins += 1
+				gameData.games = (gameData.wins + gameData.losses + gameData.ties)
+				gameData.winAverage = (Math.floor((gameData.wins / gameData.games) * 100))
+				break;
+			case (-1):
+				gameData.losses += 1
+				gameData.games = (gameData.wins + gameData.losses + gameData.ties)
+				gameData.winAverage = (Math.floor((gameData.wins / gameData.games) * 100))
+				break;
+			case (0):
+				gameData.ties += 1
+				gameData.games = (gameData.wins + gameData.losses + gameData.ties)
+				gameData.winAverage = (Math.floor((gameData.wins / gameData.games) * 100))
+				break;
+			}
+        }
+    var showRPSData = (`
+        Wins: ${gameData.wins}<br>
+        Losses: ${gameData.losses}<br>
+        Ties: ${gameData.ties}<br>
+        Games: ${gameData.games}<br>
+        Win Average: ${gameData.winAverage}%<br>`
+    )
+	if (gameData.wins == gameData.winThreshold) {
+			console.log(gameData)
+			console.log(`You win!!! You won ${gameData.wins} out of ${gameData.games} games!`)
+			console.log(`Win Percentage : ${gameData.winAverage}%.`);
+			return document.getElementById("finalData").innerHTML = showRPSData;
+	} else if (gameData.losses == gameData.winThreshold) {
+			console.log(gameData)
+			console.log(`You lost... You lost ${gameData.losses} out of ${gameData.games} games.`)
+			console.log(`Win Percentage : ${gameData.winAverage}%.`);
+			return document.getElementById("finalData").innerHTML = showRPSData;
+	} else if (gameData.games == gameData.maxGames) {
+			console.log(gameData)
+			console.log(`Let's call it a draw.`)
+			console.log(`Out of ${gameData.games} games, you won ${gameData.wins} and lost ${gameData.losses}`)
+			console.log(`Win Percentage : ${gameData.winAverage}%.`);
+            return document.getElementById("finalData").innerHTML = showRPSData;
+    }
+}
+        </script>
+    </head>
+<body>
+    <center>
+        <h2>Project: Rock Paper Scissors</h2>
+        <p>This page is a Javascript practice project as a part of <a href="https://www.theodinproject.com" target="_blank" title="The Odin Project">The Odin Project</a>.</p>
+        <p>Click one of the buttons to play the game!</p>
+
+        <p id="finalData"></p>
+        <button style ="width: auto; height:auto" onclick="playRPS()">1st to 5 wins</button>
+        <button style ="width: auto; height:auto" onclick="playRound()">Play Once</button>
+    </center>
+</body>
+</html>
