@@ -42,84 +42,70 @@ function playRound(selection) {
 		'userChoice': selection,
 		'cpuChoice': computerPlay(),
     }
-    switch (gameData.win){
-        case (1):
-            var gameOutcome = 'You Won!'
-            break;
-        case (0):
-            var gameOutcome = 'You Tied.'
-            break;
-        case (-1):
-            var gameOutcome = 'You Lost...'
-            break;
-    }
-    var showRPSData = (`
-        ${gameOutcome}<br>
-        Your Choice: ${gameData.userChoice}<br>
-        CPU's Choice: ${gameData.cpuChoice}<br>
-    `)
+
+    // var showRPSData = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
 	switch(gameData.userChoice) {
   	    case 'ROCK':
     	    switch(gameData.cpuChoice) {
     			case 'ROCK':
 				    console.log(`You Tied!`)
-				    gameData.win = (0)
-				    // console.log(gameData)
-                    document.getElementById("finalData").innerHTML = showRPSData
+                    gameData.win = (0)
+                    var gameOutcome = 'You Tied.'
+                    document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'PAPER':
-    				gameData.win = (-1)
+                    gameData.win = (-1)
+                    var gameOutcome = 'You Lost...'
 				    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
-				    // console.log(gameData)
-                    document.getElementById("finalData").innerHTML = showRPSData
+                    document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
-			    case 'SCISSORS':
-    				gameData.win = (1)
+                case 'SCISSORS':
+                    var gameOutcome = 'You Won!'
+                    gameData.win = (1)
 				    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
-				    // console.log(gameData)
-                    document.getElementById("finalData").innerHTML = showRPSData
+                    document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 		    }
   	    case 'PAPER':
         	switch(gameData.cpuChoice) {
 			    case 'ROCK':
-    				gameData.win = (-1)
-				    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
-				    // console.log(gameData)
-                    document.getElementById("finalData").innerHTML = showRPSData
+                    gameData.win = (1)
+                    var gameOutcome = 'You Won!'
+                    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
+                    document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'PAPER':
     				console.log("You Tied!")
-				    gameData.win = (0)
-				    // console.log(gameData)
-                    document.getElementById("finalData").innerHTML = showRPSData
+                    gameData.win = (0)
+                    var gameOutcome = 'You Tied.'
+                    document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'SCISSORS':
-    				gameData.win += (1)
-				    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
-				    // console.log(gameData)
-                    document.getElementById("finalData").innerHTML = showRPSData
+                    gameData.win += (-1)
+                    var gameOutcome = 'You Lost...'
+                    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
+                    document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 		    }
   	    case 'SCISSORS':
     		switch(gameData.cpuChoice) {
 			    case 'ROCK':
-    				gameData.win = (-1)
+                    gameData.win = (-1)
+                    var gameOutcome = 'You Lost...'
 				    console.log(`You Loose! ${gameData.cpuChoice} beats ${gameData.userChoice}.`)
-				    // console.log(gameData)
-                    document.getElementById("finalData").innerHTML = showRPSData
+                    document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'PAPER':
-    				gameData.win = (1)
+                    gameData.win = (1)
+                    var gameOutcome = 'You Won!'
 				    console.log(`You Win! ${gameData.userChoice} beats ${gameData.cpuChoice}.`)
-				    // console.log(gameData)
-                    document.getElementById("finalData").innerHTML = showRPSData
+                    document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 			    case 'SCISSORS':
     				gameData.win = (0)
-				    console.log("You Tied!")
-				    // console.log(gameData)
-                    document.getElementById("finalData").innerHTML = showRPSData
+                    console.log("You Tied!")
+                    var gameOutcome = 'You Tied.'
+                    document.getElementById("finalData").innerHTML = (`${gameOutcome}<br>Your Choice: ${gameData.userChoice}<br>CPU's Choice: ${gameData.cpuChoice}<br>`)
                     return gameData;
 		    }
 	    }
